@@ -61,11 +61,16 @@ function Emitter(redis, opts){
     if (!opts.socket && !opts.port) throw new Error('Missing redis `port`');
     redis = opts.socket
       ? client(opts.socket)
-      : client(opts.port, opts.host);
+      : client(opts.port, opts.host, opts.auth_pass);
   }
+
+
+
 
   this.redis = redis;
   this.prefix = (opts.key || 'socket.io');
+
+
 
   this._rooms = [];
   this._flags = {};
