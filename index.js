@@ -61,9 +61,14 @@ function Emitter(redis, opts){
     if (!opts.socket && !opts.port) throw new Error('Missing redis `port`');
     redis = opts.socket
       ? client(opts.socket)
-      : client(opts.port, opts.host, opts.auth_pass);
+      : client(opts.port, opts.host);
   }
 
+  if (opts.pass) {
+    redis.auth(opts.pass, function(err){
+      if (err) throw err;
+    });
+  }
 
 
 
